@@ -1,8 +1,9 @@
-import 'package:ecommerce_crafty_bay_live/app/app_colors.dart';
 import 'package:ecommerce_crafty_bay_live/app/asset_paths.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../widgets/app_bar_icon_button.dart';
 import '../widgets/home_carousel_slider.dart';
@@ -11,8 +12,6 @@ import '../widgets/product_search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
-  static final String name = '/home';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -40,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 16,
               ),
               _buildSectionHeader(title: "All Categories", onTapSeeAll: () {
-                Navigator.pushNamed(context, ProductCategoryScreen.name);
+                Get.find<MainBottomNavController>().moveToCategory();
               }),
               _getCategoryList(),
               _buildSectionHeader(title: "Popular", onTapSeeAll: () {}),
@@ -53,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(){
     return AppBar(
       title: SvgPicture.asset(AssetPaths.navAppLogoSvg),
       actions: [
@@ -91,7 +90,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 }
-
-

@@ -2,6 +2,8 @@ import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/login_screen.
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_category_screen.dart';
+import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_list_screen.dart';
+import 'package:ecommerce_crafty_bay_live/features/wish_list/ui/screens/wish_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -22,6 +24,10 @@ class AppRoutes{
     }
     else if (settings.name==MainBottomNavScreen.name){
       screenWidget = MainBottomNavScreen();
+    }
+    else if (settings.name==ProductListScreen.name){
+      final String category = settings.arguments as String;
+      screenWidget = ProductListScreen(category: category,);
     }
     return MaterialPageRoute(builder: (context)=>screenWidget);
   }

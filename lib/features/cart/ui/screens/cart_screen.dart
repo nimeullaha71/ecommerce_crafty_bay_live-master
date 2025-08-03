@@ -54,7 +54,6 @@ class _CartScreenState extends State<CartScreen> {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-          //color: AppColors.themeColor.withOpacity(0.15),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(24), topRight: Radius.circular(24)
           ),

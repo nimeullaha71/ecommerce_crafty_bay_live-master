@@ -1,10 +1,13 @@
 import 'package:ecommerce_crafty_bay_live/app/app_colors.dart';
 import 'package:ecommerce_crafty_bay_live/app/constants.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_review_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/widget/color_picker.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/widget/inc_dec_button.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/widget/product_image_slider.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/widget/size_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.productId});
@@ -23,7 +26,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Product Details"),
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
       ),
       body: Column(
         children: [
@@ -68,7 +70,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ],
                             ),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductReviewScreen()));
+
+                                },
                                 child: Text(
                                   "Reviews",
                                   style: TextStyle(fontSize: 16),
@@ -186,4 +191,5 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       ),
     );
   }
+
 }

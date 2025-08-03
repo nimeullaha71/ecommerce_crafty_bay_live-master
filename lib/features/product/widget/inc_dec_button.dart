@@ -2,7 +2,9 @@ import 'package:ecommerce_crafty_bay_live/app/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class IncDecButton extends StatefulWidget {
-  const IncDecButton({super.key});
+  const IncDecButton({super.key, required this.onChange});
+
+  final Function(int) onChange;
 
   @override
   State<IncDecButton> createState() => _IncDecButtonState();
@@ -20,6 +22,7 @@ class _IncDecButtonState extends State<IncDecButton> {
           if(value<=1) return;
           value--;
           setState(() {});
+          widget.onChange(value);
         }, icon: Icons.remove),
 
         Padding(
@@ -30,6 +33,7 @@ class _IncDecButtonState extends State<IncDecButton> {
           if(value>=20)return;
           value++;
           setState(() {});
+          widget.onChange(value);
         }, icon: Icons.add),
       ],
     );
@@ -39,7 +43,7 @@ class _IncDecButtonState extends State<IncDecButton> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          padding: EdgeInsets.all(6),
+          padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: AppColors.themeColor,
             borderRadius: BorderRadius.circular(4),

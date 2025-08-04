@@ -1,5 +1,6 @@
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/verify_otp_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_category_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_details_screen.dart';
@@ -33,6 +34,10 @@ class AppRoutes{
     else if (settings.name==ProductDetailsScreen.name){
       final String productId = settings.arguments as String;
       screenWidget = ProductDetailsScreen(productId: productId,);
+    }
+    else if (settings.name==VerifyOtpScreen.name){
+      final String email = settings.arguments as String;
+      screenWidget = VerifyOtpScreen(email: email,);
     }
     return MaterialPageRoute(builder: (context)=>screenWidget);
   }

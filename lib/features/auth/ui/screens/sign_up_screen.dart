@@ -1,6 +1,7 @@
 import 'package:ecommerce_crafty_bay_live/core/ui/widgets/snack_bar_message.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/data/models/sign_up_request_model.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/sign_up_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/verify_otp_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/widgets/app_logo.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -217,8 +218,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           phone: _mobileTEController.text.trim());
       final bool isSuccess = await _signUpController.signUp(model);
       if (isSuccess) {
-        //TODO:Navigate to verify otp screen
         showSnackBarMessage(context, _signUpController.message);
+        Navigator.pushNamed(context, VerifyOtpScreen.name,arguments: _emailTEController.text.trim());
       } else {
         showSnackBarMessage(context, _signUpController.errorMessage!, true);
       }

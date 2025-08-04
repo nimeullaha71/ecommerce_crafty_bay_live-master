@@ -4,6 +4,12 @@ class NetworkResponse{
   final int statusCode;
   final Map<String,dynamic>? responseData;
   final String ? errorMessage;
+  final bool isSuccess;
 
-  NetworkResponse({required this.statusCode, this.responseData, this.errorMessage});
+  NetworkResponse({
+    required this.isSuccess,
+    required this.statusCode,
+    this.responseData,
+    this.errorMessage
+  });
 }

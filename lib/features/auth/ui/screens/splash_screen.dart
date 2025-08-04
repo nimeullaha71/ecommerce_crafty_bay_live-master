@@ -1,3 +1,4 @@
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/home/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void>_moveToHomeScreen()async{
     await Future.delayed(Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+    Navigator.pushReplacementNamed(context, SignUpScreen.name);
   }
 
   @override

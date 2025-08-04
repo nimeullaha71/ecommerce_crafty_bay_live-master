@@ -1,5 +1,6 @@
 import 'package:ecommerce_crafty_bay_live/core/services/network/network_client.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/sign_up_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/verify_otp_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class ControllerBinder extends Bindings {
     Get.put(NetworkClient(
         onUnAuthorize: _onUnAuthorize, commonHeaders: _commonHeaders));
     Get.put(SignUpController());
+    Get.put(VerifyOtpController());
   }
 
   void _onUnAuthorize() {

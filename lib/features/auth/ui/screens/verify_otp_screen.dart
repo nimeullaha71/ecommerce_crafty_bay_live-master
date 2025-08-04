@@ -1,8 +1,13 @@
 import 'package:ecommerce_crafty_bay_live/app/app_colors.dart';
+import 'package:ecommerce_crafty_bay_live/core/ui/widgets/centeres_circular_progress-indicator.dart';
+import 'package:ecommerce_crafty_bay_live/core/ui/widgets/snack_bar_message.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/data/models/verify_otp_request_model.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/verify_otp_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/widgets/app_logo.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
@@ -73,13 +78,27 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                       fieldWidth: 50,
                     ),
                     appContext: context,
+                    validator: (String ? value){
+                      if(value == null || value.length<4){
+                        return 'Enter your Otp';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(
                     height: 16,
                   ),
-                  ElevatedButton(
-                    onPressed: _onTapLoginButton,
-                    child: Text("Verify"),
+                  GetBuilder<VerifyOtpController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.inProgress == false,
+                        replacement: CenteredCirclarProgressIndicator(),
+                        child: ElevatedButton(
+                          onPressed: _onTapLoginButton,
+                          child: Text("Verify"),
+                        ),
+                      );
+                    }
                   )
                 ],
               ),
@@ -91,9 +110,16 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   }
 
 
-  void _onTapLoginButton(){
-    //if(_formKey.currentState!.validate()){}
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+  Future<void> _onTapLoginButton() async {
+    if(_formKey.currentState!.validate()){
+     VeridyOtpRequestModel model = VeridyOtpRequestModel(email: widget.email, otp: _otpTEController.text);
+     final bool isSuccess = await Get.find<VerifyOtpController>().verisyOtp(model);
+     if(isSuccess){
+
+     }else{
+       showSnackBarMessage(context, Get.find<VerifyOtpController>().errorMessage!,true);
+     }
+    }
   }
 
   @override

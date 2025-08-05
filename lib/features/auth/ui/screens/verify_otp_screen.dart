@@ -5,6 +5,7 @@ import 'package:ecommerce_crafty_bay_live/features/auth/data/models/verify_otp_r
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/verify_otp_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/widgets/app_logo.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -115,7 +116,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
      VeridyOtpRequestModel model = VeridyOtpRequestModel(email: widget.email, otp: _otpTEController.text);
      final bool isSuccess = await Get.find<VerifyOtpController>().verisyOtp(model);
      if(isSuccess){
-
+       Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (predicate)=>false);
      }else{
        showSnackBarMessage(context, Get.find<VerifyOtpController>().errorMessage!,true);
      }

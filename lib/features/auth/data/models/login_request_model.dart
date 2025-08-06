@@ -1,15 +1,15 @@
-class VeriyOtpRequestModel {
+class LoginRequestModel {
   final String email;
-  final String otp;
+  final String password;
 
-  VeriyOtpRequestModel({
+  LoginRequestModel({
     required this.email,
-    required this.otp
+    required this.password,
   });
   Map<String,dynamic> toJson(){
     return{
       'email': email,
-      'otp': otp
+      'password': password
     };
   }
 }

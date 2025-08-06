@@ -1,8 +1,13 @@
-import 'package:ecommerce_crafty_bay_live/app/app_colors.dart';
+import 'package:ecommerce_crafty_bay_live/core/ui/widgets/centeres_circular_progress-indicator.dart';
+import 'package:ecommerce_crafty_bay_live/core/ui/widgets/snack_bar_message.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/data/models/login_request_model.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/login_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/widgets/app_logo.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final LoginController _loginController = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +97,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 16,
                   ),
-                  ElevatedButton(
-                    onPressed: _onTapLoginButton,
-                    child: Text("Login"),
+                  GetBuilder<LoginController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.inProgress == false,
+                        replacement: CenteredCirclarProgressIndicator(),
+                        child: ElevatedButton(
+                          onPressed: _onTapLoginButton,
+                          child: Text("Login"),
+                        ),
+                      );
+                    }
                   )
                 ],
               ),
@@ -105,9 +119,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   
   
-  void _onTapLoginButton(){
-    //if(_formKey.currentState!.validate()){}
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+  Future<void> _onTapLoginButton() async {
+    if(_formKey.currentState!.validate()){
+      LoginRequestModel model = LoginRequestModel(email: _emailTEController.text.trim(), password: _passwordTEController.text);
+      final bool isSuccess = await _loginController.login(model);
+      if(isSuccess){
+        Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (predicate)=>false);
+      }else{
+        showSnackBarMessage(context, _loginController.errorMessage!,true);
+      }
+    }
+
   }
   
   @override

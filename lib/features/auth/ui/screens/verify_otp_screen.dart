@@ -113,7 +113,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
 
   Future<void> _onTapLoginButton() async {
     if(_formKey.currentState!.validate()){
-     VeridyOtpRequestModel model = VeridyOtpRequestModel(email: widget.email, otp: _otpTEController.text);
+     VeriyOtpRequestModel model = VeriyOtpRequestModel(email: widget.email, otp: _otpTEController.text);
      final bool isSuccess = await Get.find<VerifyOtpController>().verisyOtp(model);
      if(isSuccess){
        Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (predicate)=>false);

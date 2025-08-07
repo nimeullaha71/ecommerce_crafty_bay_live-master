@@ -5,6 +5,7 @@ import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/verify_otp
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/controllers/auth_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/home_slider_controller.dart';
 import 'package:get/get.dart';
 
 class ControllerBinder extends Bindings {
@@ -19,6 +20,7 @@ class ControllerBinder extends Bindings {
     Get.put(SignUpController());
     Get.put(VerifyOtpController());
     Get.put(LoginController());
+    Get.put(HomeSliderCOntroller());
 
   }
 

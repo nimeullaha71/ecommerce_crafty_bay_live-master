@@ -1,6 +1,8 @@
 import 'package:ecommerce_crafty_bay_live/app/app_colors.dart';
 import 'package:ecommerce_crafty_bay_live/app/asset_paths.dart';
+import 'package:ecommerce_crafty_bay_live/core/ui/widgets/centeres_circular_progress-indicator.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/home_slider_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 16,
               ),
-              HomeCarouselSlider(),
+              GetBuilder<HomeSliderCOntroller>(
+                builder: (sliderController){
+                  if(sliderController.inProgress){
+                    return SizedBox(height: 192, child: CenteredCirclarProgressIndicator());
+                  }
+                  return HomeCarouselSlider(sliders: sliderController.sliderModelList,);
+                }
+              ),
               SizedBox(
                 height: 16,
               ),

@@ -1,3 +1,5 @@
+import 'package:ecommerce_crafty_bay_live/core/ui/widgets/centeres_circular_progress-indicator.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/controllers/category_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/widgets/product_category_item.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,22 @@ class ProductCategoryScreen extends StatefulWidget {
 }
 
 class _ProductCategoryState extends State<ProductCategoryScreen> {
+
+  final ScrollController _scrollController = ScrollController();
+  final CategoryListController _categoryListController = Get.find<CategoryListController>();
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_loadMoreData);
+  }
+
+  void _loadMoreData() {
+    if (_scrollController.position.extentAfter < 300) {
+      _categoryListController.getCategoryList();
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -27,18 +45,35 @@ class _ProductCategoryState extends State<ProductCategoryScreen> {
             Get.find<MainBottomNavController>().backToHome();
           }, icon: Icon(Icons.arrow_back_ios)),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: GridView.builder(
-              itemCount: 50,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 2,
-              ),
-              itemBuilder: (context, index) {
-                return FittedBox(child: ProductCategoryItem());
-              }),
+        body: GetBuilder<CategoryListController>(
+          builder: (controller){
+            if(controller.initialLoadingInProgress){
+              return CenteredCirclarProgressIndicator();
+            }
+            return Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: GridView.builder(
+                      controller: _scrollController,
+                        itemCount: controller.categoryModelList.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 2,
+                        ),
+                        itemBuilder: (context, index) {
+                          return FittedBox(child: ProductCategoryItem());
+                        }),
+                  ),
+                ),
+                Visibility(
+                    visible: controller.inProgress,
+                    child: LinearProgressIndicator())
+              ],
+            );
+          }
         ),
       ),
     );

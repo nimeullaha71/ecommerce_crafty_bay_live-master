@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../app/urls.dart';
 
-class HomeSliderCOntroller extends GetxController {
+class HomeSliderController extends GetxController {
   bool _inProgress = false;
   String? _errorMessage;
 

@@ -1,4 +1,5 @@
 import 'package:ecommerce_crafty_bay_live/features/cart/ui/screens/cart_screen.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/controllers/category_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_category_screen.dart';
@@ -29,7 +30,8 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<HomeSliderCOntroller>().getHomeSliders();
+    Get.find<HomeSliderController>().getHomeSliders();
+    Get.find<CategoryListController>().getCategoryList();
   }
 
   @override

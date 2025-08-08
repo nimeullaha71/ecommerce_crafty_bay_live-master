@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 16,
               ),
-              GetBuilder<HomeSliderCOntroller>(
+              GetBuilder<HomeSliderController>(
                 builder: (sliderController){
                   if(sliderController.inProgress){
                     return SizedBox(height: 192, child: CenteredCirclarProgressIndicator());

@@ -1,6 +1,7 @@
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/verify_otp_screen.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/models/category_model.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_category_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_details_screen.dart';
@@ -28,7 +29,7 @@ class AppRoutes{
       screenWidget = MainBottomNavScreen();
     }
     else if (settings.name==ProductListScreen.name){
-      final String category = settings.arguments as String;
+      final CategoryModel category = settings.arguments as CategoryModel;
       screenWidget = ProductListScreen(category: category,);
     }
     else if (settings.name==ProductDetailsScreen.name){

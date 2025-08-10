@@ -1,4 +1,5 @@
 import 'package:ecommerce_crafty_bay_live/app/constants.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/models/product_model.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,14 +8,16 @@ import '../../../../app/asset_paths.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    super.key,
+    super.key, required this.productModel,
   });
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.pushNamed(context, ProductDetailsScreen.name,arguments: '123');
+        Navigator.pushNamed(context, ProductDetailsScreen.name,arguments: productModel.id);
       },
       child: Container(
         width: 140,
@@ -40,8 +43,9 @@ class ProductCard extends StatelessWidget {
                     topLeft: Radius.circular(16), topRight: Radius.circular(16)),
               ),
               padding: EdgeInsets.all(16),
-              child: Image.asset(
-                AssetPaths.NikeShoePng,
+              child: Image.network(
+                productModel.photoUrls.first,
+
                 height: 80,
               ),
             ),
@@ -50,7 +54,7 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "Nike ER345T - New Model of 2025",
+                    productModel.title,
                     maxLines: 1,
                     style: TextStyle(
                         overflow: TextOverflow.ellipsis,
@@ -61,7 +65,7 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${Constants.takaSign}1000",
+                        "${Constants.takaSign}${productModel.currentPrice}",
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,

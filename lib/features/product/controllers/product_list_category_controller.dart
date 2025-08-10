@@ -1,14 +1,14 @@
-import 'package:ecommerce_crafty_bay_live/core/services/network/network_client.dart';
-import 'package:ecommerce_crafty_bay_live/features/common/models/category_model.dart';
+import 'package:ecommerce_crafty_bay_live/features/common/models/product_model.dart';
 import 'package:get/get.dart';
 
-import '../../../../app/urls.dart';
+import '../../../app/urls.dart';
+import '../../../core/services/network/network_client.dart';
 
-class CategoryListController extends GetxController {
+class ProductListByCategoryController extends GetxController{
   final int _count = 30;
-   int _currentPage = 0;
+  int _currentPage = 0;
 
-   int ? _lastPage;
+  int ? _lastPage;
 
   bool _inProgress = false;
   bool _initialLoadingInProgress = false;
@@ -20,20 +20,19 @@ class CategoryListController extends GetxController {
   bool get initialLoadingInProgress => _initialLoadingInProgress;
   String? get errorMessage => _errorMessage;
 
-  final List<CategoryModel> _categoryModelList = [];
+  final List<ProductModel> _productModelList = [];
 
-  List<CategoryModel> get categoryModelList => _categoryModelList;
+  List<ProductModel> get productModelList => _productModelList;
 
-  int get homeCategoryListItemLength => _categoryModelList.length>10 ? 10 : _categoryModelList.length;
 
-  Future<void> getCategoryList() async {
+  Future<void> getProductList(String categoryId) async {
     _currentPage++;
 
     if(_lastPage != null && _lastPage! < _currentPage){
       return;
     }
     if(_currentPage == 1){
-      _categoryModelList.clear();
+      _productModelList.clear();
       _initialLoadingInProgress = true;
     }
     else{
@@ -42,15 +41,15 @@ class CategoryListController extends GetxController {
     update();
 
     final NetworkResponse response =
-    await Get.find<NetworkClient>().getRequest(Urls.categoryListUrl(_count,_currentPage));
+    await Get.find<NetworkClient>().getRequest(Urls.productListByCategoryUrl(_count,_currentPage,categoryId));
 
     if(response.isSuccess){
       _lastPage = response.responseData!['data']['last_page'] ?? 0;
-      List<CategoryModel>list = [];
-      for(Map<String,dynamic> slider in response.responseData!['data']['results']){
-        list.add(CategoryModel.fromJson(slider));
+      List<ProductModel>list = [];
+      for(Map<String,dynamic> product in response.responseData!['data']['results']){
+        list.add(ProductModel.fromJson(product));
       }
-      _categoryModelList.addAll(list);
+      _productModelList.addAll(list);
       _errorMessage = null;
     }
     else{

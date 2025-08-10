@@ -1,19 +1,23 @@
+import 'package:ecommerce_crafty_bay_live/features/common/models/category_model.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/app_colors.dart';
+
 class ProductCategoryItem extends StatelessWidget {
   const ProductCategoryItem({
     super.key,
+    required this.categoryModel,
   });
+
+  final CategoryModel categoryModel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.pushNamed(context, ProductListScreen.name,arguments: 'Computers');
-
-
+      onTap: () {
+        Navigator.pushNamed(context, ProductListScreen.name,
+            arguments: categoryModel.title);
       },
       child: Column(
         children: [
@@ -23,14 +27,28 @@ class ProductCategoryItem extends StatelessWidget {
               color: AppColors.themeColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(Icons.computer,color: AppColors.themeColor,),
+            child: Image.network(categoryModel.iconUrl,width: 32,height: 32,),
           ),
-          const SizedBox(height: 4,),
-          Text("Computers",style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            color: AppColors.themeColor,
-          ),),
+          const SizedBox(
+            height: 4,
+          ),
+
+          Text(
+            getTitle(categoryModel.title),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: AppColors.themeColor,
+                ),
+          ),
         ],
       ),
     );
   }
+
+  String getTitle(String title){
+    if (title.length>10){
+      return '${title.substring(0,9)}..';
+    }
+    return title;
+  }
+
 }

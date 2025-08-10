@@ -1,5 +1,3 @@
-import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
-import 'package:ecommerce_crafty_bay_live/features/home/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/ui/screens/main_bottom_nav_screen.dart';

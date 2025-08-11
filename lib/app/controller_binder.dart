@@ -10,6 +10,7 @@ import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/home_slid
 import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/new_product_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/popular_product_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/special_product_list_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/product/controllers/add_to_cart_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/controllers/product_list_category_controller.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +31,7 @@ class ControllerBinder extends Bindings {
     Get.put(PopularProductController());
     Get.put(SpecialProductController());
     Get.put(NewProductController());
+    Get.put(AddToCartController());
   }
 
   void _onUnAuthorize()async{

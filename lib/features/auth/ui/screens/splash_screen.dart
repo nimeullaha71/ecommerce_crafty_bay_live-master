@@ -1,4 +1,6 @@
+import 'package:ecommerce_crafty_bay_live/features/common/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../common/ui/screens/main_bottom_nav_screen.dart';
 import '../widgets/app_logo.dart';
@@ -22,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void>_moveToHomeScreen()async{
     await Future.delayed(Duration(seconds: 2));
+    await Get.find<AuthController>().getUserData();
     Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
   }
 

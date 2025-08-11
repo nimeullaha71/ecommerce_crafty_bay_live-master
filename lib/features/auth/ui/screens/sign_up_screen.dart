@@ -1,6 +1,7 @@
 import 'package:ecommerce_crafty_bay_live/core/ui/widgets/snack_bar_message.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/data/models/sign_up_request_model.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/sign_up_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/verify_otp_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/widgets/app_logo.dart';
 import 'package:email_validator/email_validator.dart';
@@ -196,6 +197,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: Text("SignUp")));
                   }),
                   SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Have Account"),
+                      TextButton(onPressed: _onTapSignInButton, child: Text("Sign In")),
+                    ],
+                  ),
+                  SizedBox(
                     height: 32,
                   ),
                 ],
@@ -205,6 +216,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  void _onTapSignInButton(){
+    Navigator.pushNamed(context, LoginScreen.name);
   }
 
   void _onTapSignUpButton() async {

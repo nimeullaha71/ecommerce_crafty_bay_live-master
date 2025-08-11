@@ -21,8 +21,10 @@ class ControllerBinder extends Bindings {
     Get.put(MainBottomNavController());
     Get.put(NetworkClient(
         onUnAuthorize: _onUnAuthorize,
-        commonHeaders: _commonHeaders(),
-    ));
+        commonHeaders: (){
+          return _commonHeaders();
+        },
+    ),);
     Get.put(SignUpController());
     Get.put(VerifyOtpController());
     Get.put(LoginController());

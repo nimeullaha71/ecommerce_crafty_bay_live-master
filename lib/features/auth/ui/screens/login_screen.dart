@@ -2,6 +2,7 @@ import 'package:ecommerce_crafty_bay_live/core/ui/widgets/centeres_circular_prog
 import 'package:ecommerce_crafty_bay_live/core/ui/widgets/snack_bar_message.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/data/models/login_request_model.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/login_controller.dart';
+import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/sign_up_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/widgets/app_logo.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/screens/main_bottom_nav_screen.dart';
@@ -97,18 +98,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 16,
                   ),
-                  GetBuilder<LoginController>(
-                    builder: (controller) {
-                      return Visibility(
-                        visible: controller.inProgress == false,
-                        replacement: CenteredCirclarProgressIndicator(),
-                        child: ElevatedButton(
-                          onPressed: _onTapLoginButton,
-                          child: Text("Login"),
-                        ),
-                      );
-                    }
-                  )
+                  GetBuilder<LoginController>(builder: (controller) {
+                    return Visibility(
+                      visible: controller.inProgress == false,
+                      replacement: CenteredCirclarProgressIndicator(),
+                      child: ElevatedButton(
+                        onPressed: _onTapLoginButton,
+                        child: Text("Login"),
+                      ),
+                    );
+                  }),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Text("Don't have an account"),
+                     TextButton(onPressed: _onTapSignUpButton, child: Text("Sign Up")),
+                   ],
+                 )
                 ],
               ),
             ),
@@ -117,27 +126,30 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  
-  
+
   Future<void> _onTapLoginButton() async {
-    if(_formKey.currentState!.validate()){
-      LoginRequestModel model = LoginRequestModel(email: _emailTEController.text.trim(), password: _passwordTEController.text);
+    if (_formKey.currentState!.validate()) {
+      LoginRequestModel model = LoginRequestModel(
+          email: _emailTEController.text.trim(),
+          password: _passwordTEController.text);
       final bool isSuccess = await _loginController.login(model);
-      if(isSuccess){
-        Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (predicate)=>false);
-      }else{
-        showSnackBarMessage(context, _loginController.errorMessage!,true);
+      if (isSuccess) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, MainBottomNavScreen.name, (predicate) => false);
+      } else {
+        showSnackBarMessage(context, _loginController.errorMessage!, true);
       }
     }
-
   }
-  
+
+  void _onTapSignUpButton() {
+    Navigator.pushNamed(context, SignUpScreen.name);
+  }
+
   @override
   void dispose() {
     super.dispose();
     _emailTEController.dispose();
     _passwordTEController.dispose();
   }
-  
-  
 }

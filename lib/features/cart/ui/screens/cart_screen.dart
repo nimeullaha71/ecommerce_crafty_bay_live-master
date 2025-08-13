@@ -1,6 +1,6 @@
-import 'package:ecommerce_crafty_bay_live/app/asset_paths.dart';
+import 'package:ecommerce_crafty_bay_live/core/ui/widgets/centeres_circular_progress-indicator.dart';
+import 'package:ecommerce_crafty_bay_live/features/cart/ui/controllers/cart_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
-import 'package:ecommerce_crafty_bay_live/features/product/widget/inc_dec_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +16,15 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final CartListController _cartListController = Get.find<CartListController>();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      _cartListController.getCartItemList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -31,20 +40,34 @@ class _CartScreenState extends State<CartScreen> {
           ),
           leading: IconButton(onPressed: _backToHome, icon: Icon(Icons.arrow_back_ios)),
         ),
-        body: Column(
-
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: ListView.separated(
-                    itemCount: 12, itemBuilder: (context, index) {
-                      return CartItem();
-                }, separatorBuilder: (_,__)=>const SizedBox(height: 4,),),
-              ),
-            ),
-            _buildPriceAndCheckOutSection(),
-          ],
+        body: GetBuilder(
+          init: _cartListController,
+          builder: (_) {
+            if(_cartListController.inProgress)
+              {
+                return CenteredCirclarProgressIndicator();
+              }
+            if(_cartListController.errorMessage != null){
+              return Center(
+                child: Text(_cartListController.errorMessage!),
+              );
+            }
+            return Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ListView.separated(
+                        itemCount: _cartListController.cartItemList.length,
+                      itemBuilder: (context, index) {
+                          return CartItem(cartItemModel: _cartListController.cartItemList[index],);
+                    }, separatorBuilder: (_,__)=>const SizedBox(height: 4,),),
+                  ),
+                ),
+                _buildPriceAndCheckOutSection(),
+              ],
+            );
+          }
         ),
       ),
     );
@@ -72,7 +95,8 @@ class _CartScreenState extends State<CartScreen> {
                     fontWeight: FontWeight.w600),
               ),
               Text(
-                "${Constants.takaSign}1000",
+                "${Constants.takaSign}${_cartListController.totalPrice}",
+
                 style: TextStyle(
                     color: AppColors.themeColor,
                     fontWeight: FontWeight.w600,

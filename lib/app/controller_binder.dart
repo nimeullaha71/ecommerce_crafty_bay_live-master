@@ -3,6 +3,7 @@ import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/login_cont
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/sign_up_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/verify_otp_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/login_screen.dart';
+import 'package:ecommerce_crafty_bay_live/features/cart/ui/controllers/cart_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/controllers/auth_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/controllers/category_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/controllers/main_bottom_nav_controller.dart';
@@ -11,7 +12,6 @@ import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/new_produ
 import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/popular_product_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/home/ui/controllers/special_product_list_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/product/controllers/add_to_cart_controller.dart';
-import 'package:ecommerce_crafty_bay_live/features/product/controllers/product_list_category_controller.dart';
 import 'package:get/get.dart';
 
 class ControllerBinder extends Bindings {
@@ -34,6 +34,7 @@ class ControllerBinder extends Bindings {
     Get.put(SpecialProductController());
     Get.put(NewProductController());
     Get.put(AddToCartController());
+    Get.put(CartListController());
   }
 
   void _onUnAuthorize()async{

@@ -2,7 +2,6 @@ import 'package:ecommerce_crafty_bay_live/core/ui/widgets/centeres_circular_prog
 import 'package:ecommerce_crafty_bay_live/core/ui/widgets/snack_bar_message.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/data/models/login_request_model.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/login_controller.dart';
-import 'package:ecommerce_crafty_bay_live/features/auth/ui/controller/sign_up_controller.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_crafty_bay_live/features/auth/ui/widgets/app_logo.dart';
 import 'package:ecommerce_crafty_bay_live/features/common/ui/screens/main_bottom_nav_screen.dart';

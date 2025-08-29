@@ -13,4 +13,10 @@ class Urls {
   static String productDetailsUrl(String productId) => '$_baseUrl/products/id/$productId';
   static const String addToCartUrl = '$_baseUrl/cart';
   static const String getCartItemListUrl = '$_baseUrl/cart';
+
+  static String productWishList = "$_baseUrl/ProductWishList";
+  static String createWishList(productId) =>
+      "$_baseUrl/CreateWishList/$productId";
+  static String removeWishList(productId) =>
+      "$_baseUrl/RemoveWishList/$productId";
 }

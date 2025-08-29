@@ -4,8 +4,6 @@ import 'package:ecommerce_crafty_bay_live/features/product/ui/screens/product_de
 import 'package:flutter/material.dart';
 
 import '../../../../app/app_colors.dart';
-import '../../../../app/asset_paths.dart';
-
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key, required this.productModel,
